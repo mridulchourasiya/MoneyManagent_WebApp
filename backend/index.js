@@ -5,9 +5,9 @@ import http from "http";
 import cors from "cors";
 import dotenv from "dotenv";
 
-
-
-
+import passport from "passport";
+import session from "express-session";
+import connectMongo from "connect-mongodb-session";
 
 import { ApolloServer } from "@apollo/server";
 
@@ -22,6 +22,19 @@ import { connectDB } from "./db/connectDB.js";
 dotenv.config();
 const app = express();
 const httpServer = http.createServer(app);
+
+const MongoDBStore = connectMongo(session);
+// Initialize the Mongo store using the default Memory store
+const store = new MongoDBStore({
+  uri: process.env.MONGO_URI,
+  collection: "session",
+});
+
+store.on("erro", (err) => console.log(err));
+
+app.use(
+  
+)
 
 const server = new ApolloServer({
   typeDefs: mergedTypeDefs,
