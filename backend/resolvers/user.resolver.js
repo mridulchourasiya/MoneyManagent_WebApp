@@ -54,30 +54,43 @@ const userResolver = {
       }
     },
 
-
-    // logout functionaliyt for user and  admin 
-    logout: async(_,_,context) => {
+    // logout functionaliyt for user and  admin
+    logout: async (_, __, context) => {
       try {
-        
+        await context.logout();
+        req.session.destroy((err) => {
+          if (err) throw err;
+        });
+        res.clearCookie("connect.sid");
+
+        return { message: "Logged out successfully" };
       } catch (err) {
-        
+        console.error("Error in Logout: ", err);
+        throw new Error(err.message || "internal server error ");
       }
-    }
-
-
-
-
-
-
+    },
   },
   Query: {
-    users: (_, _, { req, res }) => {
-      return users;
+    auhtUser: async (_, __, context) => {
+      try {
+        const user = await context.getUser();
+        return user;
+      } catch (err) {
+        console.error("Error in authUser: ", err);
+        throw new Error("internal server error ");
+      }
     },
-    user: (_, { userId }) => {
-      return users.find((user) => user._id === userId);
+    user: async (_, { userId }) => {
+      try {
+        const user = await User.findById(userId);
+        return user;
+      } catch (err) {
+        console.log("Error in user query:", err);
+        throw new Error(err.message || "Error getting user");
+      }
     },
   },
-  Mutation: {},
+
+  // TODO => ADD USER/TRANSACTION RELATION
 };
 export default userResolver;

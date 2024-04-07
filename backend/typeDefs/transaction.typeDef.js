@@ -13,6 +13,7 @@ const transactionTypeDef = `#graphql
   type Query {
     transactions: [Transaction]  # Rename to 'transactions' to reflect it returns a list
     transaction(transactionId: ID!): Transaction
+    # TODO => ADD USER/TRANSACTION RELATION
 }
 
   type Mutation {
