@@ -6,8 +6,8 @@ const userResolver = {
   Mutation: {
     signUp: async (_, { input }, context) => {
       try {
-        const { username, name, passsword, gender } = input;
-        if (!username || !name || !passsword || !gender) {
+        const { username, name, password, gender } = input;
+        if (!username || !name || !password || !gender) {
           throw new Error("All fields are requried");
         }
         const existingUser = await User.findOne({ username });
@@ -17,7 +17,7 @@ const userResolver = {
 
         // converting the password to hashde version with the halp salt
         const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(passsword, salt);
+        const hashedPassword = await bcrypt.hash(password, salt);
 
         // https://avatar-placeholder.iran.liara.run/
         const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${username}`;
@@ -43,11 +43,13 @@ const userResolver = {
     login: async (_, { input }, context) => {
       try {
         const { username, password } = input;
+        if (!username || !password) throw new Error("All fields are required");
         const { user } = await context.authenticate("graphql-local", {
           username,
           password,
         });
         await context.login(user);
+        return user;
       } catch (err) {
         console.error("Error in Login: ", err);
         throw new Error(err.message || "internal server error ");
@@ -61,7 +63,7 @@ const userResolver = {
         req.session.destroy((err) => {
           if (err) throw err;
         });
-        res.clearCookie("connect.sid");
+        context.res.clearCookie("connect.sid");
 
         return { message: "Logged out successfully" };
       } catch (err) {

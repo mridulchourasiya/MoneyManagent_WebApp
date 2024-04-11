@@ -10,7 +10,7 @@ import session from "express-session";
 import connectMongo from "connect-mongodb-session";
 
 import { ApolloServer } from "@apollo/server";
-
+//import { ApolloServer } from "@apollo/server-express";
 import { expressMiddleware } from "@apollo/server/express4";
 
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
@@ -20,9 +20,12 @@ import mergedResolver from "./resolvers/index.js";
 import mergedTypeDefs from "./typeDefs/index.js";
 import { connectDB } from "./db/connectDB.js";
 import { configurePassport } from "./passport/passport.config.js";
+import { BsJournalBookmark } from "react-icons/bs";
 
 dotenv.config();
 configurePassport();
+
+
 const app = express();
 const httpServer = http.createServer(app);
 
@@ -30,10 +33,10 @@ const MongoDBStore = connectMongo(session);
 // Initialize the Mongo store using the default Memory store
 const store = new MongoDBStore({
   uri: process.env.MONGO_URI,
-  collection: "session",
+  collection: "sessions",
 });
 
-store.on("erro", (err) => console.log(err));
+store.on("error", (err) => console.log(err));
 
 app.use(
   session({
@@ -45,7 +48,7 @@ app.use(
       httpOnly: true,
     },
 
-    store: store,
+    store:store,
   })
 );
 
@@ -71,7 +74,7 @@ app.use(
 
   cors({
     origin: "http://localhost:3000",
-    origin: true,
+    credentials: true,
   }),
 
   express.json(),

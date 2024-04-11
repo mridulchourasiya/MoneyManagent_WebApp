@@ -6,7 +6,7 @@ type User {
     password:String!
     profilePicture:String!
     gender:String!
-
+    transactions: [Transaction!]
 }
 
 type Query {
@@ -15,12 +15,12 @@ type Query {
     user(userId:ID):User
 }
 type Mutation {
-    signUp(input: signUpInput!): User
+    signUp(input: SignUpInput!): User
     login(input: LoginInput!):User
     logout:LogoutResponse
 }
 
-input signUpInput{
+input SignUpInput{
     username:String!
     name:String!
     password:String!
