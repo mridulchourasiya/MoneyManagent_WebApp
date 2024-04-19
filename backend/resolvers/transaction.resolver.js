@@ -25,7 +25,26 @@ const transactionResolver = {
         throw new Error(err.message || "Error getting transactions");
       }
     },
-    // TODO => ADD categoryStatistcs query
+
+    //CATEGORY MAP FUNCTON
+    categoryStatistics: async (_, __, context) => {
+      if (!context.getUser()) throw new Error("Unorthorized");
+      const userId = context.getUser()._id;
+      const transactions = await Transaction.find({ userId });
+
+      const categoryMap = {};
+
+      transactions.forEach((transaction) => {
+        if (!categoryMap[transaction.category]) {
+          categoryMap[transaction.category] = 0;
+        }
+        categoryMap[transaction.category] += transaction.amount;
+      });
+      return Object.entries(categoryMap).map(([category, totalAmount]) => ({
+        category,
+        totalAmount,
+      }));
+    },
   },
   Mutation: {
     createTransaction: async (_, { input }, context) => {

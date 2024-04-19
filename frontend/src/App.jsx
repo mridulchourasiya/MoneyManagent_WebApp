@@ -17,7 +17,7 @@ function App() {
   console.log("Loading: ", loading);
   console.log("Authenticate user", data);
   console.log("Error: ", error);
- // if (loading) return null;
+  //if (loading) return null;
   return (
     <>
       {data?.authUser && <Header />}
@@ -29,7 +29,7 @@ function App() {
         />
         <Route
           path="/login"
-          element={!data?.authUser ? <LoginPage /> : <Navigate to="/" />}
+          element={!data?.authUser ?  <LoginPage /> : <Navigate to="/" />}
         />
         <Route
           path="/signup"

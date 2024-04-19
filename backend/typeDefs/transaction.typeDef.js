@@ -14,6 +14,7 @@ const transactionTypeDef = `#graphql
     transactions: [Transaction]  # Rename to 'transactions' to reflect it returns a list
     transaction(transactionId: ID!): Transaction
     # TODO => ADD USER/TRANSACTION RELATION
+    categoryStatistics: [CategoryStatistics!]
 }
 
   type Mutation {
@@ -22,6 +23,15 @@ const transactionTypeDef = `#graphql
     deleteTransaction(transactionId:ID!):Transaction!
 
   }
+ 
+  type CategoryStatistics {
+    category: String!
+    totalAmount: Float!
+  }
+
+
+
+
  input CreateTransactionInput {
     description: String!
     paymentType:String!
