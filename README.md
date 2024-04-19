@@ -1,3 +1,4 @@
+![image](https://github.com/mridulchourasiya/MoneyManagent_WebApp/assets/99160348/932ec8fd-3860-4eef-9b6b-9b8e0493ec18)
 
 ### Build the app
 Welcome to the MERN GraphQL Expense Tracker App! This project is designed to help you manage your expenses efficiently using a modern tech stack and GraphQL.
