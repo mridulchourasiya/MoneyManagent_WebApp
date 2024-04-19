@@ -1,21 +1,9 @@
-import { BsGithub, BsLinkedin, BsInstagram } from "react-icons/bs";
-import { Link } from "react-router-dom";
-
 const Navbar = () => {
   return (
-    <div>
-      <div className="flex flex-row gap-5 justify-center items-center">
-        <Link href="https://github.com/mridulchourasiya">
-          <BsGithub />
-        </Link>
-        <Link href="">
-          <BsLinkedin />
-        </Link>
-        <Link href="">
-          <BsInstagram />
-        </Link>
-        <p className="text-bold text-xl text-gray-200 ">
-          Developed By : Mridul Chourasia
+    <div className="bg-gray-800 py-4">
+      <div className="container mx-auto flex flex-col md:flex-row items-center justify-between px-4">
+        <p className="text-bold text-xl text-gray-200 mt-4 md:mt-0">
+          Developed By: Mridul Chourasia
         </p>
       </div>
     </div>
