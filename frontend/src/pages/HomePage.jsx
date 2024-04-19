@@ -11,6 +11,7 @@ import { LOGOUT } from "../graphql/mutations/user.mutation";
 import { GET_TRANSACTION_STATISTICS } from "../graphql/queries/transaction.query";
 import { GET_AUTHENTICATED_USER } from "../graphql/queries/user.query";
 import { useEffect, useState } from "react";
+import Navbar from "../components/Navbar";
 
 // const chartData = {
 //     labels: ["Saving", "Expense", "Investment"],
@@ -138,14 +139,18 @@ const HomePage = () => {
             <div className="w-6 h-6 border-t-2 border-b-2 mx-2 rounded-full animate-spin"></div>
           )}
         </div>
+
         <div className="flex flex-wrap w-full justify-center items-center gap-6">
-          <div className="h-[330px] w-[330px] md:h-[360px] md:w-[360px]  ">
-            <Doughnut data={chartData} />
-          </div>
+          {data?.categoryStatistics.length > 0 && (
+            <div className="h-[330px] w-[330px] md:h-[360px] md:w-[360px]  ">
+              <Doughnut data={chartData} />
+            </div>
+          )}
 
           <TransactionForm />
         </div>
         <Cards />
+        <Navbar />
       </div>
     </>
   );

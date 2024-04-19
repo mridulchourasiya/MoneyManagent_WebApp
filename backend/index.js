@@ -4,7 +4,7 @@ import http from "http";
 
 import cors from "cors";
 import dotenv from "dotenv";
-
+import path from "path";
 import passport from "passport";
 import session from "express-session";
 import connectMongo from "connect-mongodb-session";
@@ -25,6 +25,7 @@ import { BsJournalBookmark } from "react-icons/bs";
 dotenv.config();
 configurePassport();
 
+const __dirname = path.resolve();
 
 const app = express();
 const httpServer = http.createServer(app);
@@ -48,7 +49,7 @@ app.use(
       httpOnly: true,
     },
 
-    store:store,
+    store: store,
   })
 );
 
@@ -88,9 +89,15 @@ app.use(
   })
 );
 
+// Deployment Code
+app.use(express.static(path.join(__dirname, "frontend/dist")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "frontend/dist", "index.html"));
+});
+
 // Modified server startup
 
 await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
 await connectDB();
 
-console.log(`🚀 Server ready at http://localhost:4000/graphql`);
+console.log(`🚀 Server ready at http://localhost:4000/`);

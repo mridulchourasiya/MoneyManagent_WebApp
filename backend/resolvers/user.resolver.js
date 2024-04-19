@@ -93,16 +93,16 @@ const userResolver = {
     },
   },
 
-  // User: {
-  //   transactions: async (parent) => {
-  //     try {
-  //       const transactions = await Transaction.find({ userId: parent._id });
-  //       return transactions;
-  //     } catch (err) {
-  //       console.log("Error in User treansaction resolver ", err);
-  //       throw new Error(err.message || "internal Server Error");
-  //     }
-  //   },
-  // },
+  User: {
+    transactions: async (parent,_) => {
+      try {
+        const transactions = await Transaction.find({ userId: parent._id });
+        return transactions;
+      } catch (err) {
+        console.log("Error in User treansaction resolver ", err);
+        throw new Error(err.message || "internal Server Error");
+      }
+    },
+  },
 };
 export default userResolver;
