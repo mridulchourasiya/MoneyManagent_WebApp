@@ -22,4 +22,6 @@ MONGO_URI=...
 SESSION_SECRET=...
 ```
 
-### Build the app
+### Digram 
+![diagram-export-4-22-2024-7_05_43-PM](https://github.com/mridulchourasiya/MoneyManagent_WebApp/assets/99160348/4d157596-b3be-4234-a4e2-e5f99264cec0)
+
