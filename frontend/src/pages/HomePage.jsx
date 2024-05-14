@@ -11,7 +11,7 @@ import { LOGOUT } from "../graphql/mutations/user.mutation";
 import { GET_TRANSACTION_STATISTICS } from "../graphql/queries/transaction.query";
 import { GET_AUTHENTICATED_USER } from "../graphql/queries/user.query";
 import { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
+
 
 // const chartData = {
 //     labels: ["Saving", "Expense", "Investment"],
@@ -150,7 +150,7 @@ const HomePage = () => {
           <TransactionForm />
         </div>
         <Cards />
-        <Navbar />
+      
       </div>
     </>
   );
